@@ -1,0 +1,1 @@
+##This repo is a learning curve for Firebase and its features.

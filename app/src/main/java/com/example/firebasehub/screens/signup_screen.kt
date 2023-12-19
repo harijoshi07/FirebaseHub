@@ -22,6 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.firebasehub.R
 import com.example.firebasehub.components.ButtonComponent
 import com.example.firebasehub.components.CheckBoxComponent
@@ -30,9 +32,10 @@ import com.example.firebasehub.components.DividerComponent
 import com.example.firebasehub.components.NormalTextComponent
 import com.example.firebasehub.components.PasswordTextFieldComponent
 import com.example.firebasehub.components.TextFieldComponent
+import com.example.firebasehub.navigation.Screen
 
 @Composable
-fun SignupScreen() {
+fun SignupScreen(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -84,8 +87,8 @@ fun SignupScreen() {
             ButtonComponent(value = stringResource(R.string.register))
 
             DividerComponent()
-            ClickableTextComponent(onTextSelected = {
-
+            ClickableTextComponent(tryingToLogin = true, onTextSelected = {
+                navController.navigate(Screen.LoginScreen.route)
             })
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -99,5 +102,5 @@ fun SignupScreen() {
 @Preview
 @Composable
 fun PreviewSignupScreen() {
-    SignupScreen()
+    SignupScreen(navController = rememberNavController())
 }

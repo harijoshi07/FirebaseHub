@@ -49,6 +49,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
@@ -71,7 +72,6 @@ fun NormalTextComponent(
         text = value,
         modifier = Modifier
             .fillMaxWidth(),
-        //.heightIn(min = 80.dp),
         style = TextStyle(
             fontSize = fontSize,
             fontWeight = fontWeight,
@@ -79,6 +79,23 @@ fun NormalTextComponent(
         ),
         color = fontColor,
         textAlign = TextAlign.Center
+    )
+}
+
+@Composable
+fun UnderlinedTextComponent(value: String) {
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth(),
+        style = TextStyle(
+            fontSize = 14.sp,
+            fontWeight = FontWeight.W400,
+            fontStyle = FontStyle.Normal
+        ),
+        color = TextColor,
+        textAlign = TextAlign.Center,
+        textDecoration = TextDecoration.Underline
     )
 }
 
@@ -278,9 +295,9 @@ fun DividerComponent() {
 }
 
 @Composable
-fun ClickableTextComponent(onTextSelected: (String) -> Unit) {
-    val initialText = "Already have an account? "
-    val loginText = "Login"
+fun ClickableTextComponent(tryingToLogin: Boolean = true, onTextSelected: (String) -> Unit) {
+    val initialText = if (tryingToLogin) "Already have an account? " else "Don't have an account yet?"
+    val loginText = if (tryingToLogin) " Login" else " Register"
     val annotatedString = buildAnnotatedString {
         append(initialText)
         withStyle(style = SpanStyle(color = Primary)) {
@@ -304,7 +321,7 @@ fun ClickableTextComponent(onTextSelected: (String) -> Unit) {
         modifier = Modifier
             .fillMaxWidth(),
         style = TextStyle(
-            fontSize = 21.sp,
+            fontSize = 20.sp,
             fontWeight = FontWeight.W400,
             fontStyle = FontStyle.Normal,
             textAlign = TextAlign.Center

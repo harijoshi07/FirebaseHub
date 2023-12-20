@@ -70,7 +70,8 @@ fun LoginScreen(navController: NavController) {
             //Spacer(modifier = Modifier.height(40.dp))
             ButtonComponent(
                 value = stringResource(R.string.login),
-                onButtonClicked = {}
+                onButtonClicked = {},
+                isEnabled = false
             )
             DividerComponent()
             ClickableTextComponent(tryingToLogin = false, onTextSelected = {

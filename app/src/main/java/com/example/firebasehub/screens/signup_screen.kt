@@ -98,15 +98,15 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel = 
 
             )
 
-            PasswordTextFieldComponent(
+            /*PasswordTextFieldComponent(
                 labelValue = stringResource(R.string.confirm_password),
                 imageVector = Icons.Outlined.Lock,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.PasswordChanged(it))
                 },
-                errorStatus =  loginViewModel.registrationUiState.value._passwordError
+                errorStatus = loginViewModel.registrationUiState.value._passwordError
 
-            )
+            )*/
 
             CheckBoxComponent(value = stringResource(R.string.termsNconditions))
 
@@ -117,7 +117,8 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel = 
                 onButtonClicked = {
                     loginViewModel.onEvent(UIEvent.RegistrationButtonClicked)
 
-                }
+                },
+                isEnabled = loginViewModel.allValidationsPassed.value
             )
 
             DividerComponent()

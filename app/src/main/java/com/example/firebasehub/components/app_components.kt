@@ -259,7 +259,11 @@ fun CheckBoxComponentPreview() {
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
+fun ButtonComponent(
+    value: String,
+    onButtonClicked: () -> Unit,
+    isEnabled:Boolean
+) {
     Button(
         onClick = {
             onButtonClicked.invoke()
@@ -268,7 +272,8 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
             .fillMaxWidth()
             .heightIn(min = 48.dp),
         contentPadding = PaddingValues(),
-        colors = ButtonDefaults.buttonColors(Color.Transparent)
+        colors = ButtonDefaults.buttonColors(Color.White),
+        enabled = isEnabled
     ) {
         Box(
             modifier = Modifier
@@ -284,7 +289,8 @@ fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
             Text(
                 text = value,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.W600
+                fontWeight = FontWeight.W600,
+                color = Color.White
             )
 
         }

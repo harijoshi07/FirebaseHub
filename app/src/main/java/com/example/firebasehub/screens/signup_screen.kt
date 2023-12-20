@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.firebasehub.R
@@ -32,10 +33,12 @@ import com.example.firebasehub.components.DividerComponent
 import com.example.firebasehub.components.NormalTextComponent
 import com.example.firebasehub.components.PasswordTextFieldComponent
 import com.example.firebasehub.components.TextFieldComponent
+import com.example.firebasehub.data.LoginViewModel
+import com.example.firebasehub.data.UIEvent
 import com.example.firebasehub.navigation.Screen
 
 @Composable
-fun SignupScreen(navController: NavController) {
+fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= viewModel()) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -58,26 +61,46 @@ fun SignupScreen(navController: NavController) {
 
             TextFieldComponent(
                 labelValue = stringResource(R.string.first_name),
-                imageVector = Icons.Outlined.Person
+                imageVector = Icons.Outlined.Person,
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.FirstNameChanged(it))
+
+                }
             )
             TextFieldComponent(
                 labelValue = stringResource(R.string.last_name),
-                imageVector = Icons.Outlined.Person
+                imageVector = Icons.Outlined.Person,
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.LastNameChanged(it))
+
+                }
             )
 
             TextFieldComponent(
                 labelValue = stringResource(R.string.email),
-                imageVector = Icons.Outlined.Email
+                imageVector = Icons.Outlined.Email,
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.EmailChanged(it))
+
+                }
             )
 
             PasswordTextFieldComponent(
                 labelValue = stringResource(R.string.password),
-                imageVector = Icons.Outlined.Lock
+                imageVector = Icons.Outlined.Lock,
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+
+                }
             )
 
             PasswordTextFieldComponent(
                 labelValue = stringResource(R.string.confirm_password),
-                imageVector = Icons.Outlined.Lock
+                imageVector = Icons.Outlined.Lock,
+                onTextSelected = {
+                    loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+
+                }
             )
 
             CheckBoxComponent(value = stringResource(R.string.termsNconditions))

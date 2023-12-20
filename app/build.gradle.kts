@@ -69,7 +69,9 @@ dependencies {
 
     //using all google provided icons
     implementation("androidx.compose.material:material-icons-extended-android:1.5.4")
-
-    implementation ("androidx.navigation:navigation-compose:2.7.6")
+    //navigation
+    implementation("androidx.navigation:navigation-compose:2.7.6")
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
 }

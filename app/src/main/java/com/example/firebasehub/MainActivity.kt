@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.firebasehub.navigation.AppNavigation
 import com.example.firebasehub.screens.SignupScreen
 import com.example.firebasehub.ui.theme.FirebaseHubTheme
 
@@ -19,8 +20,11 @@ class MainActivity : ComponentActivity() {
         setContent {
             FirebaseHubTheme {
                 // A surface container using the 'background' color from the theme
-                Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    SignupScreen()
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    AppNavigation()
 
                 }
             }

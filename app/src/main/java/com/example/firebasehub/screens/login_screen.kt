@@ -55,18 +55,23 @@ fun LoginScreen(navController: NavController) {
 
             TextFieldComponent(
                 labelValue = "Email",
-                imageVector = Icons.Outlined.Email
+                imageVector = Icons.Outlined.Email,
+                onTextSelected = {}
             )
             PasswordTextFieldComponent(
                 labelValue = "Password",
-                imageVector = Icons.Outlined.Lock
+                imageVector = Icons.Outlined.Lock,
+                onTextSelected = {}
             )
             Spacer(modifier = Modifier.height(20.dp))
             UnderlinedTextComponent(value = "Forgot your Password?")
 
             Spacer(modifier = Modifier.weight(1f))
             //Spacer(modifier = Modifier.height(40.dp))
-            ButtonComponent(value = stringResource(R.string.login))
+            ButtonComponent(
+                value = stringResource(R.string.login),
+                onButtonClicked = {}
+            )
             DividerComponent()
             ClickableTextComponent(tryingToLogin = false, onTextSelected = {
                 navController.navigate(Screen.SignupScreen.route)

@@ -38,7 +38,7 @@ import com.example.firebasehub.data.UIEvent
 import com.example.firebasehub.navigation.Screen
 
 @Composable
-fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= viewModel()) {
+fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel = viewModel()) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -64,16 +64,18 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= v
                 imageVector = Icons.Outlined.Person,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.FirstNameChanged(it))
+                },
+                errorStatus = loginViewModel.registrationUiState.value._firstNameError
 
-                }
             )
             TextFieldComponent(
                 labelValue = stringResource(R.string.last_name),
                 imageVector = Icons.Outlined.Person,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.LastNameChanged(it))
+                },
+                errorStatus = loginViewModel.registrationUiState.value._lastNameError
 
-                }
             )
 
             TextFieldComponent(
@@ -81,8 +83,9 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= v
                 imageVector = Icons.Outlined.Email,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.EmailChanged(it))
+                },
+                errorStatus = loginViewModel.registrationUiState.value._emailError
 
-                }
             )
 
             PasswordTextFieldComponent(
@@ -90,8 +93,9 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= v
                 imageVector = Icons.Outlined.Lock,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                },
+                errorStatus = loginViewModel.registrationUiState.value._passwordError
 
-                }
             )
 
             PasswordTextFieldComponent(
@@ -99,15 +103,22 @@ fun SignupScreen(navController: NavController, loginViewModel: LoginViewModel= v
                 imageVector = Icons.Outlined.Lock,
                 onTextSelected = {
                     loginViewModel.onEvent(UIEvent.PasswordChanged(it))
+                },
+                errorStatus =  loginViewModel.registrationUiState.value._passwordError
 
-                }
             )
 
             CheckBoxComponent(value = stringResource(R.string.termsNconditions))
 
             Spacer(modifier = Modifier.weight(1f))
 
-            ButtonComponent(value = stringResource(R.string.register))
+            ButtonComponent(
+                value = stringResource(R.string.register),
+                onButtonClicked = {
+                    loginViewModel.onEvent(UIEvent.RegistrationButtonClicked)
+
+                }
+            )
 
             DividerComponent()
             ClickableTextComponent(tryingToLogin = true, onTextSelected = {

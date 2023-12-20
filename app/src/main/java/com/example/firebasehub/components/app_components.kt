@@ -1,4 +1,3 @@
-
 package com.example.firebasehub.components
 
 import androidx.compose.foundation.background
@@ -105,7 +104,8 @@ fun UnderlinedTextComponent(value: String) {
 fun TextFieldComponent(
     labelValue: String,
     imageVector: ImageVector,
-    onTextSelected: (String) -> Unit
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean = false
 ) {
 
     var textValue by remember {
@@ -139,7 +139,8 @@ fun TextFieldComponent(
 
         leadingIcon = {
             Icon(imageVector = imageVector, contentDescription = null, tint = Color.Gray)
-        }
+        },
+        isError = !errorStatus
 
 
     )
@@ -152,7 +153,8 @@ fun TextFieldComponent(
 fun PasswordTextFieldComponent(
     labelValue: String,
     imageVector: ImageVector,
-    onTextSelected: (String) -> Unit
+    onTextSelected: (String) -> Unit,
+    errorStatus: Boolean = false
 ) {
 
     var password by remember {
@@ -215,7 +217,9 @@ fun PasswordTextFieldComponent(
             }
         },
         visualTransformation = if (passwordVisible.value) VisualTransformation.None
-        else PasswordVisualTransformation()
+        else PasswordVisualTransformation(),
+
+        isError = !errorStatus
 
 
     )
@@ -255,9 +259,11 @@ fun CheckBoxComponentPreview() {
 }
 
 @Composable
-fun ButtonComponent(value: String) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {
+            onButtonClicked.invoke()
+        },
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 48.dp),

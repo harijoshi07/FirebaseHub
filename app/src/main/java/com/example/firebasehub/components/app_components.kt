@@ -1,4 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.example.firebasehub.components
 
@@ -39,12 +38,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -99,8 +100,13 @@ fun UnderlinedTextComponent(value: String) {
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldComponent(labelValue: String, imageVector: ImageVector) {
+fun TextFieldComponent(
+    labelValue: String,
+    imageVector: ImageVector,
+    onTextSelected: (String) -> Unit
+) {
 
     var textValue by remember {
         mutableStateOf("")
@@ -114,6 +120,7 @@ fun TextFieldComponent(labelValue: String, imageVector: ImageVector) {
         value = textValue,
         onValueChange = {
             textValue = it
+            onTextSelected(it)
         },
         label = {
             Text(text = labelValue)
@@ -125,7 +132,9 @@ fun TextFieldComponent(labelValue: String, imageVector: ImageVector) {
             containerColor = BgColor
         ),
 
-        keyboardOptions = KeyboardOptions.Default,
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
+        singleLine = true,
+        maxLines = 1,
         keyboardActions = KeyboardActions.Default,
 
         leadingIcon = {
@@ -138,8 +147,13 @@ fun TextFieldComponent(labelValue: String, imageVector: ImageVector) {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PasswordTextFieldComponent(labelValue: String, imageVector: ImageVector) {
+fun PasswordTextFieldComponent(
+    labelValue: String,
+    imageVector: ImageVector,
+    onTextSelected: (String) -> Unit
+) {
 
     var password by remember {
         mutableStateOf("")
@@ -149,6 +163,8 @@ fun PasswordTextFieldComponent(labelValue: String, imageVector: ImageVector) {
         mutableStateOf(false)
     }
 
+    val localFocusManager = LocalFocusManager.current
+
     OutlinedTextField(
         modifier = Modifier
             .fillMaxWidth()
@@ -157,6 +173,7 @@ fun PasswordTextFieldComponent(labelValue: String, imageVector: ImageVector) {
         value = password,
         onValueChange = {
             password = it
+            onTextSelected(it)
         },
         label = {
             Text(text = labelValue)
@@ -168,8 +185,15 @@ fun PasswordTextFieldComponent(labelValue: String, imageVector: ImageVector) {
             containerColor = BgColor
         ),
 
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        keyboardActions = KeyboardActions.Default,
+        keyboardOptions = KeyboardOptions(
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Password
+        ),
+        singleLine = true,
+        maxLines = 1,
+        keyboardActions = KeyboardActions {
+            localFocusManager.clearFocus()
+        },
 
         leadingIcon = {
             Icon(imageVector = imageVector, contentDescription = null, tint = Color.Gray)
@@ -296,7 +320,8 @@ fun DividerComponent() {
 
 @Composable
 fun ClickableTextComponent(tryingToLogin: Boolean = true, onTextSelected: (String) -> Unit) {
-    val initialText = if (tryingToLogin) "Already have an account? " else "Don't have an account yet?"
+    val initialText =
+        if (tryingToLogin) "Already have an account? " else "Don't have an account yet?"
     val loginText = if (tryingToLogin) " Login" else " Register"
     val annotatedString = buildAnnotatedString {
         append(initialText)

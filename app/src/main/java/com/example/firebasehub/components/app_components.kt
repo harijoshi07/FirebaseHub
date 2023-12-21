@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -227,22 +228,25 @@ fun PasswordTextFieldComponent(
 }
 
 @Composable
-fun CheckBoxComponent(value: String) {
+fun CheckBoxComponent(value: String, onChecked: (Boolean) -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(56.dp)
     ) {
-        val checkedState by remember {
+        val checkedState = remember {
             mutableStateOf(false)
         }
 
         Checkbox(
-            checked = checkedState,
+            checked = checkedState.value,
             onCheckedChange = {
-                checkedState != checkedState
-            }
+               checkedState.value = !checkedState.value
+                //checkedState.value=it
+                onChecked.invoke(it)
+            },
+            colors = CheckboxDefaults.colors(Primary)
         )
         Text(
             text = value,
@@ -255,14 +259,19 @@ fun CheckBoxComponent(value: String) {
 @Preview(showBackground = true)
 @Composable
 fun CheckBoxComponentPreview() {
-    CheckBoxComponent(value = "By continuing you accept our Privacy Policy and Terms of Use")
+    CheckBoxComponent(
+        value = stringResource(R.string.termsAndConditions),
+        onChecked ={
+
+        }
+    )
 }
 
 @Composable
 fun ButtonComponent(
     value: String,
     onButtonClicked: () -> Unit,
-    isEnabled:Boolean
+    isEnabled: Boolean
 ) {
     Button(
         onClick = {

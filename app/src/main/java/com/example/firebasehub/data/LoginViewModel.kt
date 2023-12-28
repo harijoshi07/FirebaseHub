@@ -76,7 +76,7 @@ class LoginViewModel : ViewModel() {
 
             }
             .addOnFailureListener {
-                loginInProgress.value = false
+               // loginInProgress.value = false
 
                 Log.d(TAG, "Inside_Login failure")
                 Log.d(TAG, "${it.localizedMessage}")

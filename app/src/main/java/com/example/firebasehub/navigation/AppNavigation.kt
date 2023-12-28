@@ -1,21 +1,15 @@
 package com.example.firebasehub.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.example.firebasehub.screens.HomeScreen
 import com.example.firebasehub.screens.LoginScreen
 import com.example.firebasehub.screens.SignupScreen
 
 @Composable
-fun AppNavigation() {
-
-    val navController = rememberNavController()
-
-
-
-
+fun AppNavigation(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = Screen.SignupScreen.route) {
 
@@ -30,5 +24,9 @@ fun AppNavigation() {
         composable(route=Screen.HomeScreen.route){
             HomeScreen()
         }
+
+//        composable(route=Screen.SignupViewModel.route){
+//           Screen.SignupViewModel(navController)
+//        }
     }
 }
